@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,15 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::all();
+        $content_header = "Add new employee";
+        $breadcrumbs = [
+            [ 'name' => 'Home', 'link' => '/' ],
+            [ 'name' => 'Employees list', 'link' => '/users'],
+            [ 'name' => 'Add new employee', 'link' => '/users/create' ],
+        ];
+        return view('users.create', compact(['departments', 'content_header', 'breadcrumbs']));
+
     }
 
     /**
