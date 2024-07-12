@@ -7,9 +7,9 @@ function fillPositions(){
         'url' : '/departments/positions-by-department/' + department_id,
         'type' : 'get',
         'success' : (response) => {
-            let options = `<option selected disabled value=''>--select department--</option>`
+            let options = `<option disabled value=''>--select position--</option>`
             response.forEach(function (e){
-                options += `<option selected disabled value='${e.id}'>${e.name}</option>`
+                options += `<option selected value='${e.id}'>${e.name}</option>`
             })
             $('#position_id').html(options);
         }

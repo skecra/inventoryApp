@@ -24,28 +24,22 @@
                                 <label for="name">Name</label>
                                 <input type="text" name="name" id="name_input" class="form-control">
                                 @error('name')
-                                <div class="invalid-feedback">
                                     {{ $message }}
-                                </div>
-                            @enderror
+                                  @enderror
                             </div>
                             <div class="col-4">
                                 <label for="email">Email</label>
                                 <input type="text" name="email" id="email_input" class="form-control">
                                 @error('email')
-                                <div class="invalid-feedback">
                                     {{ $message }}
-                                </div>
-                            @enderror
+                                 @enderror
                             </div>
                             <div class="col-4">
                                 <label for="name">Password</label>
                                 <input type="text" name="password" id="password_input" class="form-control">
                                 @error('password')
-                                <div class="invalid-feedback">
                                     {{ $message }}
-                                </div>
-                            @enderror
+                                 @enderror
                             </div>
                         </div>
                         <div class="row">
@@ -59,14 +53,12 @@
                                 </select>
                             </div>
                             <div class="col-4">
-                                <label for="department">Position</label>
+                                <label for="position_id">Position</label>
                                 <select name="position_id" class="form-control" id="position_id">
-                                    <option selected disabled value="">--select position--</option>
+                                    <option disabled value="">--select position--</option>
                                 </select>
-                                @error('positions')
-                                <div class="invalid-feedback">
+                                @error('position_id')
                                     {{ $message }}
-                                </div>
                             @enderror
                             </div>
                             <div class="col-4">
@@ -74,6 +66,9 @@
                             </div>
                         </div>
                     </form>
+
+
+
 
                 </div><!-- /.card-body -->
             </div>

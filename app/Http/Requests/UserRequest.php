@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Requests;
-use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserRequest extends FormRequest
 {
@@ -25,17 +25,17 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            "name"=> "required|min:3|max:255",
-            "email"=> "required|min:3|max:255|email",
-            "password"=> "required|min:8|max:255|alpha_num",
-            'position_id' => 'required|exists:positions,id',
-            
+            "name" => "required|string|min:3|max:255",
+            "email" => "required|string|email|max:255|unique:users",
+            "password" => "required|string|min:8",
+            "position_id" => 'integer|required'
         ];
     }
 
-    public function validated(){
+    public function validated()
+    {
         $validated = $this->validate($this->rules());
         $validated['password'] = Hash::make($validated['password']);
         return $validated;
-        }
+    }
 }
