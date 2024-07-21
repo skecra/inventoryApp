@@ -69,8 +69,26 @@
                     <a href="/users" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Zaposleni
+                            Users
 {{--                            <span class="right badge badge-danger">New</span>--}}
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/equipment_categories" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Equipment Categories
+                            {{--                            <span class="right badge badge-danger">New</span>--}}
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/equipment" class="nav-link">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>
+                            Equipment
+                            {{--                            <span class="right badge badge-danger">New</span>--}}
                         </p>
                     </a>
                 </li>

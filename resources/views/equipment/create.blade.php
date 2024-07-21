@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('page_title', 'Add new employee')
+@section('page_title', 'Add new equipment')
 
 @section('content')
 
@@ -11,13 +11,13 @@
                 <div class="card-header">
                     <h3 class="card-title">
                         <i class="fas fa-users mr-1"></i>
-                        Add new employee
+                        Add new Equipment
                     </h3>
 
                 </div><!-- /.card-header -->
                 <div class="card-body table-responsive">
 
-                    <form action="/users" method="POST">
+                    <form action="/equipment" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-4">
@@ -25,50 +25,55 @@
                                 <input type="text" name="name" id="name_input" class="form-control @error('name') is-invalid @endif">
                                 <div class="invalid-feedback">
                                     @error('name')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <label for="email">Email</label>
-                                <input type="text" name="email" id="email_input" class="form-control @error('email') is-invalid @endif">
-                                <div class="invalid-feedback">
-                                    @error('email')
                                     {{ $message }}
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-4">
-                                <label for="name">Password</label>
-                                <input type="text" name="password" id="password_input" class="form-control @error('password') is-invalid @endif">
+                                <label for="equipment_category_id">Category</label>
+                                <select name="equipment_category_id" class="form-control  @error('equipment_category_id') is-invalid @endif" id="">
+                                    <option selected disabled value="">--choose category--</option>
+                                    @foreach($categories as $c)
+                                        <option value="{{$c->id}}">{{$c->name}}</option>
+                                    @endforeach
+                                </select>
                                 <div class="invalid-feedback">
-                                    @error('password')
+                                    @error('equipment_category_id')
                                     {{ $message }}
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="col-4">
+                                <label for="quantity">Quantity</label>
+                                <input type="text" name="quantity" id="name_input" class="form-control @error('quantity') is-invalid @endif">
+                                <div class="invalid-feedback">
+                                    @error('quantity')
+                                    {{ $message }}
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="invalid-feedback">
+                                @error('name')
+                                {{ $message }}
+                                @enderror
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-4">
-                                <label for="department">Department</label>
-                                <select name="department_id" class="form-control" onchange="fillPositions()" id="department_id">
-                                    <option selected disabled value="">--select department--</option>
-                                    @foreach($departments as $d)
-                                        <option value="{{$d->id}}">{{$d->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-4">
-                                <label for="position_id">Position</label>
-                                <select name="position_id" class="form-control @error('position_id') is-invalid @endif" id="position_id">
-                                    <option disabled value="">--select position--</option>
-                                </select>
+                                <label for="quantity">Description</label>
+                                <textarea name="description" id="" class="form-control" cols="10" rows="2"></textarea>
                                 <div class="invalid-feedback">
-                                    @error('position_id')
+                                    @error('quantity')
                                     {{ $message }}
                                     @enderror
                                 </div>
                             </div>
+                            <div class="invalid-feedback">
+                                @error('name')
+                                {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
                             <div class="col-4">
                                 <button type="submit" class="btn btn-success mt-4">Save</button>
                             </div>
@@ -87,6 +92,3 @@
 
 @endsection
 
-@section('additional_scripts')
-    <script src="{{asset('js/users/create.js')}}"></script>
-@endsection

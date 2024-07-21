@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EquipmentCategoryController;
+use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +25,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/users', UserController::class);
+Route::resource('/equipment_categories', EquipmentCategoryController::class);
+Route::resource('/equipment', EquipmentController::class);
 Route::get('/departments/positions-by-department/{department}', [DepartmentController::class, 'positions']);

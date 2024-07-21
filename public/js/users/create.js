@@ -1,5 +1,5 @@
 
-function fillPositions(){
+function fillPositions(position_id = null ){
 
     let department_id = $('#department_id').val();
     // console.log(department_id)
@@ -9,7 +9,11 @@ function fillPositions(){
         'success' : (response) => {
             let options = `<option disabled value=''>--select position--</option>`
             response.forEach(function (e){
-                options += `<option selected value='${e.id}'>${e.name}</option>`
+                let selected = ''
+                if (position_id && position_id == e.id){
+                    selected = 'selected'
+                }
+                options += `<option ${selected} value='${e.id}'>${e.name}</option>`
             })
             $('#position_id').html(options);
         }

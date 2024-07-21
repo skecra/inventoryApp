@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('page_title', 'Add new employee')
+@section('page_title', 'Edit employee')
 
 @section('content')
 
@@ -11,27 +11,28 @@
                 <div class="card-header">
                     <h3 class="card-title">
                         <i class="fas fa-users mr-1"></i>
-                        Add new employee
+                        Edit employee
                     </h3>
 
                 </div><!-- /.card-header -->
                 <div class="card-body table-responsive">
 
-                    <form action="/users" method="POST">
+                    <form action="/users/{{$user->id}}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="row">
                             <div class="col-4">
                                 <label for="name">Name</label>
-                                <input type="text" name="name" id="name_input" class="form-control @error('name') is-invalid @endif">
+                                <input value="{{$user->name}}" type="text" name="name" id="name_input" class="form-control @error('name') is-invalid @endif">
                                 <div class="invalid-feedback">
                                     @error('name')
-                                        {{ $message }}
+                                    {{ $message }}
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-4">
                                 <label for="email">Email</label>
-                                <input type="text" name="email" id="email_input" class="form-control @error('email') is-invalid @endif">
+                                <input value="{{$user->email}}" type="text" name="email" id="email_input" class="form-control @error('email') is-invalid @endif">
                                 <div class="invalid-feedback">
                                     @error('email')
                                     {{ $message }}
@@ -40,7 +41,7 @@
                             </div>
                             <div class="col-4">
                                 <label for="name">Password</label>
-                                <input type="text" name="password" id="password_input" class="form-control @error('password') is-invalid @endif">
+                                <input type="text" disabled name="password" id="password_input" class="form-control @error('password') is-invalid @endif">
                                 <div class="invalid-feedback">
                                     @error('password')
                                     {{ $message }}
@@ -52,9 +53,9 @@
                             <div class="col-4">
                                 <label for="department">Department</label>
                                 <select name="department_id" class="form-control" onchange="fillPositions()" id="department_id">
-                                    <option selected disabled value="">--select department--</option>
+                                    <option disabled value="">--select department--</option>
                                     @foreach($departments as $d)
-                                        <option value="{{$d->id}}">{{$d->name}}</option>
+                                        <option @if($department->id == $d->id) selected @endif value="{{$d->id}}">{{$d->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -89,4 +90,7 @@
 
 @section('additional_scripts')
     <script src="{{asset('js/users/create.js')}}"></script>
+    <script>
+        fillPositions({{$user->position_id}})
+    </script>
 @endsection

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('page_title', 'Employees list')
+@section('page_title', 'Equipment list')
 
 @section('content')
 
@@ -11,12 +11,12 @@
                 <div class="card-header">
                     <h3 class="card-title">
                         <i class="fas fa-users mr-1"></i>
-                        Employees
+                        Equipment
                     </h3>
                     <div class="card-tools">
                         <ul class="nav nav-pills ml-auto">
                             <li class="nav-item">
-                                <a class="btn btn-sm btn-flat btn-primary" href="/users/create">Add new employee</a>
+                                <a class="btn btn-sm btn-flat btn-primary" href="/equipment/create">Add new equipment</a>
                             </li>
                         </ul>
                     </div>
@@ -28,35 +28,39 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>E-mail</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Serial numbers</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $user)
+                        @foreach($equipment as $e)
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td><a href="/users/{{$user->id}}">{{ $user->name }}</a> </td>
-                                <td>{{ $user->email }}</td>
+                                <td>{{ $e->id }}</td>
+                                <td><a href="/equipment_categories/{{$e->id}}">{{ $e->name }}</a> </td>
+                                <td>{{$e->equipmentCategory->name}}</td>
+                                <td>{{$e->quantity}}</td>
+                                <td>serial number</td>
                                 <td>
-                                    <a href="/users/{{ $user->id }}/edit" class="btn btn-primary btn-sm btn-flat">
+                                    <a href="/equipment_categories/{{ $e->id }}/edit" class="btn btn-primary btn-sm btn-flat">
                                         <i class="fa fa-edit"></i>
                                         EDIT
                                     </a>
                                 </td>
                                 <td>
-                                    @if($user->id != auth()->id())
-                                    <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="modal" data-target="#modalUser{{$user->id}}">
+
+                                    <button type="button" class="btn btn-danger btn-sm btn-flat" data-toggle="modal" data-target="#modalEquipment{{$e->id}}">
                                         <i class="fa fa-times"></i> Delete
                                     </button>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="modalUser{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="modalEquipment{{$e->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Do you want to delete user {{$user->name}}</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Do you want to delete equipment {{$e->name}}</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -66,7 +70,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <form action="/users/{{ $user->id }}" method="POST">
+                                                    <form action="/equipment_categories/{{ $e->id }}" method="POST">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-danger btn-sm btn-flat">
@@ -78,7 +82,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @endif
                                 </td>
                             </tr>
                         @endforeach

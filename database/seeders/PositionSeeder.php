@@ -19,5 +19,9 @@ class PositionSeeder extends Seeder
             'name' => 'Backend',
             'department_id' => Department::query()->first()->id,
         ]);
+        Position::query()->create([
+            'name' => 'Frontend',
+            'department_id' => Department::query()->first()->id,
+        ]);
     }
 }

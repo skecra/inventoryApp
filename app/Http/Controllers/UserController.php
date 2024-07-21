@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\Department;
+use App\Models\Position;
 use App\Models\User;
+use Database\Seeders\PositionSeeder;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -65,7 +67,15 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $department = Position::find($user->position_id)->department;
+        $user->department = $department;
+        $content_header = "Employee details";
+        $breadcrumbs = [
+            [ 'name' => 'Home', 'link' => '/' ],
+            [ 'name' => 'Employees list', 'link' => '/users'],
+            [ 'name' => 'Add new employee', 'link' => '/users/create' ],
+        ];
+        return view('users.show', compact(['user', 'breadcrumbs', 'content_header']));
     }
 
     /**
@@ -76,7 +86,16 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $departments = Department::all();
+        $position = Position::find($user->position_id);
+        $content_header = "Edit Employee";
+        $department = $position->department;
+        $breadcrumbs = [
+            [ 'name' => 'Home', 'link' => '/' ],
+            [ 'name' => 'Edit employee', 'link' => '/users'],
+            [ 'name' => 'Add new employee', 'link' => '/users/edit' ],
+        ];
+        return view('users.edit', compact(['user', 'departments', 'department', 'breadcrumbs', 'content_header']));
     }
 
     /**
@@ -88,7 +107,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->update($request->except('password'));
+        return redirect('/users');
     }
 
     /**
@@ -99,6 +119,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect('/users');
     }
 }
