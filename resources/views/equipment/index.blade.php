@@ -39,12 +39,51 @@
                         @foreach($equipment as $e)
                             <tr>
                                 <td>{{ $e->id }}</td>
-                                <td><a href="/equipment_categories/{{$e->id}}">{{ $e->name }}</a> </td>
+                                <td><a href="/equipment/{{$e->id}}">{{ $e->name }}</a> </td>
                                 <td>{{$e->equipmentCategory->name}}</td>
                                 <td>{{$e->quantity}}</td>
-                                <td>serial number</td>
                                 <td>
-                                    <a href="/equipment_categories/{{ $e->id }}/edit" class="btn btn-primary btn-sm btn-flat">
+
+                                    
+                                    <button type="button" class="btn btn-flat" onclick="fillSerialNumberForm({{$e->quantity}}, {{$e->id}})" data-toggle="modal" data-target="#modalSerialNumbers{{$e->id}}">
+                                      Add  <i class="fa fa-barcode"></i>
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalSerialNumbers{{$e->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add serial numbers for {{$e->name}}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <form method="POST" action="">
+                                                        @csrf
+                                                        <div id="dynamic-inputs{{$e->id}}">
+                                                            <input type="hidden" name="equipment_id" value="{{$e->id}}">
+                                                            <!-- Dinamički inputi će biti dodani ovdje -->
+                                                        </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button class="btn btn-danger btn-sm btn-flat">
+                                                            <i class="fa fa-times"></i>
+                                                            Save
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <a href="/equipment/{{ $e->id }}/edit" class="btn btn-primary btn-sm btn-flat">
                                         <i class="fa fa-edit"></i>
                                         EDIT
                                     </a>
@@ -70,7 +109,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <form action="/equipment_categories/{{ $e->id }}" method="POST">
+                                                    <form action="/equipment/{{ $e->id }}" method="POST">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button class="btn btn-danger btn-sm btn-flat">
@@ -95,4 +134,8 @@
         </div>
     </div>
 
+@endsection
+
+@section('additional_scripts')
+<script src="{{asset('js/equipment/index.js')}}"></script>
 @endsection

@@ -3,6 +3,7 @@
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EquipmentCategoryController;
 use App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\SerialNumberEquipmentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,8 +24,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//zasticene sve rute
+Route::middleware(['auth'])->group(function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/users', UserController::class);
 Route::resource('/equipment_categories', EquipmentCategoryController::class);
 Route::resource('/equipment', EquipmentController::class);
 Route::get('/departments/positions-by-department/{department}', [DepartmentController::class, 'positions']);
+Route::put('/serialNumber/create/new', [SerialNumberEquipmentController::class, 'inputSerialNumber']);
+});

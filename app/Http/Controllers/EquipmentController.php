@@ -20,7 +20,7 @@ class EquipmentController extends Controller
         $content_header = "Equipment";
         $breadcrumbs = [
             [ 'name' => 'Home', 'link' => '/' ],
-            [ 'name' => 'Equipment list', 'link' => '/equipment_categories'],
+            [ 'name' => 'Equipment list', 'link' => '/equipment'],
 //            [ 'name' => 'Add new category', 'link' => '/equipment_categories/create' ],
         ];
         $equipment = Equipment::all();
@@ -38,8 +38,8 @@ class EquipmentController extends Controller
         $content_header = "Add New Equipment";
         $breadcrumbs = [
             [ 'name' => 'Home', 'link' => '/' ],
-            [ 'name' => 'Equipment list', 'link' => '/equipment_categories'],
-            [ 'name' => 'Add new equipment', 'link' => '/equipment_categories/create' ],
+            [ 'name' => 'Equipment list', 'link' => '/equipment'],
+            [ 'name' => 'Add new equipment', 'link' => '/equipment/create' ],
         ];
         return view('equipment.create', compact('categories', 'content_header', 'breadcrumbs'));
 
@@ -65,7 +65,14 @@ class EquipmentController extends Controller
      */
     public function show(Equipment $equipment)
     {
-        //
+        $categories = EquipmentCategory::all();
+        $content_header = "Equipment details";
+        $breadcrumbs = [
+            [ 'name' => 'Home', 'link' => '/' ],
+            [ 'name' => 'Equipment list', 'link' => '/equipment'],
+            [ 'name' => 'Equipment details', 'link' => '/equipment/create' ],
+        ];
+        return view('equipment.show', compact(['categories', 'content_header', 'breadcrumbs', "equipment"]));
     }
 
     /**
@@ -76,7 +83,14 @@ class EquipmentController extends Controller
      */
     public function edit(Equipment $equipment)
     {
-        //
+        $content_header = "Add New Equipment";
+        $categories = EquipmentCategory::all();
+        $breadcrumbs = [
+            [ 'name' => 'Home', 'link' => '/' ],
+            [ 'name' => 'Equipment list', 'link' => '/equipment'],
+            [ 'name' => 'Add new equipment', 'link' => '/equipment/create' ],
+        ];
+        return view('equipment.edit', compact(['equipment', 'content_header', 'breadcrumbs', 'categories']));
     }
 
     /**
@@ -88,7 +102,8 @@ class EquipmentController extends Controller
      */
     public function update(UpdateEquipmentRequest $request, Equipment $equipment)
     {
-        //
+        $equipment->update($request->all());
+        return redirect('/equipment');
     }
 
     /**
@@ -99,6 +114,7 @@ class EquipmentController extends Controller
      */
     public function destroy(Equipment $equipment)
     {
-        //
+        $equipment->delete();
+        return redirect('equipment');
     }
 }

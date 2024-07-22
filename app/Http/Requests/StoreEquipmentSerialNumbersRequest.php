@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSerialNumberEquipmentRequest extends FormRequest
+class StoreEquipmentSerialNumbersRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreSerialNumberEquipmentRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,7 +24,7 @@ class StoreSerialNumberEquipmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'inputs.*' => 'required', // Ovo će osigurati da svi inputi u nizu "inputs" budu obavezni
+            //
         ];
     }
 }

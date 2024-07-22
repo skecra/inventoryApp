@@ -13,7 +13,7 @@ class UpdateEquipmentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class UpdateEquipmentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|min:3|max:50',
+            'quantity' => 'numeric|min:1',
+            'equipment_category_id' => 'required|exists:equipment_categories,id|numeric',
         ];
     }
 }
