@@ -24,7 +24,16 @@ class StoreSerialNumberEquipmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'inputs.*' => 'required', // Ovo će osigurati da svi inputi u nizu "inputs" budu obavezni
+//            'inputs.*' => 'required', // Ovo će osigurati da svi inputi u nizu "inputs" budu obavezni
         ];
+
+        foreach ($this->request->all() as $key => $value) {
+            // Ako ključ počinje sa "inputs_" i slijedi broj
+            if (preg_match('/^inputs_\d+$/', $key)) {
+                $rules[$key] = 'required|string'; // Postavi pravilo "required" za sve inpute
+            }
+        }
+
+        return $rules;
     }
 }

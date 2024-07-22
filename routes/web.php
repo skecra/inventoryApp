@@ -32,4 +32,5 @@ Route::resource('/equipment_categories', EquipmentCategoryController::class);
 Route::resource('/equipment', EquipmentController::class);
 Route::get('/departments/positions-by-department/{department}', [DepartmentController::class, 'positions']);
 Route::put('/serialNumber/create/new', [SerialNumberEquipmentController::class, 'inputSerialNumber']);
+Route::get('/getEquipmentSerialNumber/{id}', [SerialNumberEquipmentController::class, 'getEquipmentSerialNumber']);
 });
